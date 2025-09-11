@@ -13,6 +13,13 @@
     "js": [
       "content/removeGoogleAISearch.js"
     ]
+  }, {
+    "matches": [ "https://www.reddit.com/*" ],
+    "match_about_blank": false,
+    "run_at": "document_end",
+    "js": [
+      "content/removeRedditAds.js"
+    ]
   }],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
