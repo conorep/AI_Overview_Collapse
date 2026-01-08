@@ -12,6 +12,9 @@
     "run_at": "document_start",
     "js": [
       "content/removeGoogleAISearch.js"
+    ],
+    "css": [
+      "css/collapseStyle.css"
     ]
   }, {
     "matches": [ "https://www.reddit.com/*" ],
