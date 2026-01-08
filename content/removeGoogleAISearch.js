@@ -34,7 +34,21 @@
       if(killRecursion) return;
 
       if(insertedNode.nodeName === 'H1' && insertedNode.innerHTML === AIElementFlag) {
-        insertedNode.closest('div[data-hveid]').remove();
+        let collapseButton = document.createElement('button');
+        collapseButton.innerText = 'Show or Hide AI Overview';
+        collapseButton.id = 'googleAccordion';
+
+        let hveidElement = insertedNode.closest('div[data-hveid]');
+        hveidElement = hveidElement.parentElement;
+
+        let leftOffsetElement = document.querySelector('div[role="navigation"]');
+        collapseButton.style.marginLeft = leftOffsetElement.getBoundingClientRect().left + 'px';
+        collapseButton.dataset.hveid = hveidElement.dataset?.hveid;
+
+        resizeHandler(leftOffsetElement, collapseButton);
+        hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
+        boxTheAIOverview(hveidElement);
+
         theObserver.disconnect();
         killRecursion = true;
         return;
@@ -50,3 +64,30 @@
     removeAIElements();
   }
 })();
+
+function resizeHandler(offsetLeftEl, buttonEl) {
+  function resetLeftOffset() {
+    buttonEl.style.marginLeft = offsetLeftEl.getBoundingClientRect().left + 'px';
+  }
+  window.addEventListener('resize', resetLeftOffset);
+  showAndHideAIOverview(buttonEl);
+}
+
+function boxTheAIOverview(overviewElement) {
+  let collapsibleContainer = document.createElement('div');
+  collapsibleContainer.id = 'collapsingAIContent';
+  overviewElement.insertAdjacentElement('beforebegin', collapsibleContainer);
+  collapsibleContainer.append(overviewElement);
+}
+
+function showAndHideAIOverview(collapseButton) {
+  collapseButton.addEventListener('click', function() {
+    this.classList.toggle('active');
+    let content = this.nextElementSibling;
+
+    if(content.style.maxHeight)
+      content.style.maxHeight = '';
+    else
+      content.style.maxHeight = "100%";
+  });
+}
