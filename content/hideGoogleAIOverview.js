@@ -17,19 +17,22 @@
     const recurseThroughChildNodes = (insertedNode, theObserver) => {
       if(killRecursion) return;
 
-      if(insertedNode.nodeName === 'H1' && insertedNode.innerHTML === AIElementFlag) {
-        let collapseButton = document.createElement('button');
-        collapseButton.innerText = 'Show or Hide AI Overview';
-        collapseButton.id = 'googleAccordion';
-
+      if(insertedNode.nodeName === 'H1' && insertedNode.innerText === AIElementFlag) {
         let hveidElement = insertedNode.closest('div[data-hveid]');
-        if(!hveidElement.parentElement?.dataset?.hveid) return true;
+        if(!hveidElement.parentElement?.dataset?.hveid) {
+          hveidElement = hveidElement.parentElement.closest(('div[data-hveid'));
+          if(!hveidElement.parentElement?.dataset?.hveid)
+            return true;
+        }
 
         hveidElement = hveidElement.parentElement;
-        let leftOffsetElement = document.querySelector('div[role="navigation"]');
-        collapseButton.style.marginLeft = leftOffsetElement.getBoundingClientRect().left + 'px';
+        const collapseButton = createCompleteElement('button', {
+          id: 'googleAccordion', innerText: 'Show or Hide AI Overview'
+        });
+        let offsetEle = document.querySelector('div[role="navigation"]');
+        Object.assign(collapseButton.style, { marginLeft: offsetEle.getBoundingClientRect().left + 'px' })
 
-        resizeHandler(leftOffsetElement, collapseButton);
+        resizeHandler(offsetEle, collapseButton);
         hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
         boxTheAIOverview(hveidElement);
 
@@ -48,7 +51,7 @@
 })();
 
 function resizeHandler(offsetLeftEl, buttonEl) {
-  function resetLeftOffset() {
+  const resetLeftOffset = () => {
     buttonEl.style.marginLeft = offsetLeftEl.getBoundingClientRect().left + 'px';
   }
   window.addEventListener('resize', resetLeftOffset);
@@ -56,8 +59,7 @@ function resizeHandler(offsetLeftEl, buttonEl) {
 }
 
 function boxTheAIOverview(overviewElement) {
-  let collapsibleContainer = document.createElement('div');
-  collapsibleContainer.id = 'collapsingAIContent';
+  let collapsibleContainer = createCompleteElement('div', { id: 'collapsingAIContent' });
   overviewElement.insertAdjacentElement('beforebegin', collapsibleContainer);
   collapsibleContainer.append(overviewElement);
 }
@@ -72,4 +74,8 @@ function showAndHideAIOverview(collapseButton) {
     else
       content.style.maxHeight = "100%";
   });
+}
+
+function createCompleteElement(eleTag, attributes) {
+  return Object.assign(document.createElement(eleTag), attributes);
 }
