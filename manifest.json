@@ -1,6 +1,6 @@
 {
-  "name": "AI Search Killer",
-  "description": "Removes AI Search result elements",
+  "name": "AI Overview Collapse",
+  "description": "Make the Google AI Overview search result section into a collapsible container.",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -11,7 +11,10 @@
     "match_about_blank": false,
     "run_at": "document_start",
     "js": [
-      "content/removeGoogleAISearch.js"
+      "content/hideGoogleAIOverview.js"
+    ],
+    "css": [
+      "css/collapseStyle.css"
     ]
   }, {
     "matches": [ "https://www.reddit.com/*" ],

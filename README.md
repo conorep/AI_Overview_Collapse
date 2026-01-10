@@ -1,5 +1,5 @@
-# AI_Search_Blocker
-A small Chrome MV3 extension that removes Google's AI search result elements from Google searches in Chrome.
+# AI Overview Collapse
+A small Chrome MV3 extension that places Google's AI search result elements into something that can be shown or hidden 
+via a click.
 
-This is an EXTREMELY bare-bones extension that's ready to sideload in Chrome.\
-I'll add further abilities in the future as I get annoyed by more forced web AI interactions.
+As a bonus, the extension also hides ads on Reddit.
