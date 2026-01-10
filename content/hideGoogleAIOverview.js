@@ -25,12 +25,10 @@
         collapseButton.id = 'googleAccordion';
 
         let hveidElement = insertedNode.closest('div[data-hveid]');
-
-        if(!hveidElement) return;
-
-        while(hveidElement && !hveidElement.parentElement.dataset.hveid)
+        while(hveidElement && !hveidElement.parentElement.dataset.hveid) {
           hveidElement = insertedNode.closest('div[data-hveid]');
-
+          if(hveidElement === null) break;
+        }
         if(!hveidElement) return;
 
         hveidElement = hveidElement.parentElement;
