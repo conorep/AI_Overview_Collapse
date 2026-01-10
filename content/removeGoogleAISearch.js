@@ -3,20 +3,6 @@
     const AIElementFlag = 'AI Overview';
     let killRecursion = false;
 
-    const removeAIElements = () => {
-      const allH1s = document.querySelectorAll('h1');
-      let haveFoundEle = false;
-      [...allH1s].every((h1Ele) => {
-        if(h1Ele.innerHTML === AIElementFlag) {
-          h1Ele.closest('div[data-hveid]').remove();
-          haveFoundEle = true;
-          return false;
-        }
-        return true;
-      })
-      if(!haveFoundEle) observeElementChanges();
-    }
-
     const observeElementChanges = () => {
       let onMutationsObserved = function(mutations, thisObserver) {
         for(const mutation of mutations) {
@@ -39,11 +25,17 @@
         collapseButton.id = 'googleAccordion';
 
         let hveidElement = insertedNode.closest('div[data-hveid]');
-        hveidElement = hveidElement.parentElement;
 
+        if(!hveidElement) return;
+
+        while(hveidElement && !hveidElement.parentElement.dataset.hveid)
+          hveidElement = insertedNode.closest('div[data-hveid]');
+
+        if(!hveidElement) return;
+
+        hveidElement = hveidElement.parentElement;
         let leftOffsetElement = document.querySelector('div[role="navigation"]');
         collapseButton.style.marginLeft = leftOffsetElement.getBoundingClientRect().left + 'px';
-        collapseButton.dataset.hveid = hveidElement.dataset?.hveid;
 
         resizeHandler(leftOffsetElement, collapseButton);
         hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
@@ -61,7 +53,7 @@
       }
     }
 
-    removeAIElements();
+    observeElementChanges();
   }
 })();
 
