@@ -5,11 +5,9 @@
 
     const observeElementChanges = () => {
       let onMutationsObserved = function(mutations, thisObserver) {
-        for(const mutation of mutations) {
-          for(const aNode of mutation.addedNodes) {
+        for(const mutation of mutations)
+          for(const aNode of mutation.addedNodes)
             recurseThroughChildNodes(aNode, thisObserver);
-          }
-        }
       };
       const config = { childList: true, subtree: true };
       const observer = new MutationObserver(onMutationsObserved);
@@ -25,11 +23,7 @@
         collapseButton.id = 'googleAccordion';
 
         let hveidElement = insertedNode.closest('div[data-hveid]');
-        while(hveidElement && !hveidElement.parentElement.dataset.hveid) {
-          hveidElement = insertedNode.closest('div[data-hveid]');
-          if(hveidElement === null) break;
-        }
-        if(!hveidElement) return;
+        if(!hveidElement.parentElement?.dataset?.hveid) return true;
 
         hveidElement = hveidElement.parentElement;
         let leftOffsetElement = document.querySelector('div[role="navigation"]');
@@ -44,11 +38,9 @@
         return;
       }
 
-      if(insertedNode.childNodes?.length > 0) {
-        for(const subNode of insertedNode.childNodes) {
+      if(insertedNode.childNodes?.length > 0)
+        for(const subNode of insertedNode.childNodes)
           recurseThroughChildNodes(subNode, theObserver);
-        }
-      }
     }
 
     observeElementChanges();
