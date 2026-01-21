@@ -1,20 +1,22 @@
-function shredditAdRemoval() {
-  let shredditAds = document.querySelectorAll('shreddit-ad-post');
-  if(shredditAds) shredditAds.forEach((adEl) => adEl.remove());
+const adRemoval = (elementSelector) => {
+  let targetElements = document.querySelectorAll(elementSelector);
+  if(targetElements?.length)
+    targetElements.forEach((el) => el.remove());
 }
 
-function dynamicAdRemoval() {
+const dynamicAdRemoval = () => adRemoval('div[slot="credit-bar"]:not(div#pdp-credit-bar), div[slot="ad-format-content"]');
+
+const readyStateAdRemoval = () => {
   if(document.readyState !== 'complete')
     return;
-
-  let shredditDynamicAds = document.querySelectorAll('div[slot="credit-bar"]:not(div#pdp-credit-bar), div[slot="ad-format-content"]');
-  if(shredditDynamicAds?.length) {
-    shredditDynamicAds.forEach((adEl) => adEl.remove());
-    document.removeEventListener('readystatechange', dynamicAdRemoval);
-  }
+  dynamicAdRemoval();
 }
 
-document.addEventListener('readystatechange', dynamicAdRemoval);
+const shredditAdRemoval = () => adRemoval('shreddit-ad-post');
+
+window.onload = dynamicAdRemoval;
+
+document.addEventListener('readystatechange', readyStateAdRemoval);
 
 document.addEventListener('scroll', shredditAdRemoval)
 shredditAdRemoval();
