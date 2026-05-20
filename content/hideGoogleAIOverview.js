@@ -17,21 +17,18 @@
     const recurseThroughChildNodes = (insertedNode, theObserver) => {
       if(killRecursion) return;
 
-      if(insertedNode.nodeName === 'H1' && insertedNode.innerText === AIElementFlag) {
-        let hveidElement = insertedNode.closest('div[data-hveid]');
+      if(insertedNode.nodeName === 'DIV' && insertedNode.innerText === AIElementFlag) {
+        let hveidElement = insertedNode.closest('div[data-subtree="mfc"]');
         if(!hveidElement.parentElement?.dataset?.hveid) {
-          hveidElement = hveidElement.parentElement.closest(('div[data-hveid'));
-          if(!hveidElement.parentElement?.dataset?.hveid)
+          hveidElement = hveidElement.parentElement.parentElement
+          if(!hveidElement.dataset?.hveid)
             return true;
         }
 
-        hveidElement = hveidElement.parentElement;
         const collapseButton = createCompleteElement('button', {
           id: 'googleAccordion', innerText: 'Show or Hide AI Overview'
         });
         let offsetEle = document.querySelector('div[role="navigation"]');
-        Object.assign(collapseButton.style, { marginLeft: offsetEle.getBoundingClientRect().left + 'px' })
-
         resizeHandler(offsetEle, collapseButton);
         hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
         boxTheAIOverview(hveidElement);
