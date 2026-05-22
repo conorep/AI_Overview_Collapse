@@ -4,7 +4,7 @@ const adRemoval = (elementSelector) => {
     targetElements.forEach((el) => el.remove());
 }
 
-const dynamicAdRemoval = () => adRemoval('div[slot="credit-bar"]:not(div#pdp-credit-bar), div[slot="ad-format-content"]');
+const dynamicAdRemoval = () => adRemoval('div[slot="credit-bar"]:not(div#pdp-credit-bar), div[slot="ad-format-content"],  shreddit-dynamic-ad-link');
 
 const readyStateAdRemoval = () => {
   if(document.readyState !== 'complete')
