@@ -19,6 +19,10 @@
 
       if(insertedNode.nodeName === 'DIV' && insertedNode.innerText === AIElementFlag) {
         let hveidElement = insertedNode.closest('div[data-subtree="mfc"]');
+
+        if(!hveidElement)
+          return true;
+
         if(!hveidElement.parentElement?.dataset?.hveid) {
           hveidElement = hveidElement.parentElement.parentElement
           if(!hveidElement.dataset?.hveid)
