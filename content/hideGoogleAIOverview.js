@@ -32,10 +32,10 @@
         const collapseButton = createCompleteElement('button', {
           id: 'googleAccordion', innerText: 'Show or Hide AI Overview'
         });
-        let offsetEle = document.querySelector('div[role="navigation"]');
-        resizeHandler(offsetEle, collapseButton);
+
         hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
         boxTheAIOverview(hveidElement);
+        showAndHideAIOverview(collapseButton)
 
         theObserver.disconnect();
         killRecursion = true;
@@ -51,14 +51,6 @@
   }
 })();
 
-function resizeHandler(offsetLeftEl, buttonEl) {
-  const resetLeftOffset = () => {
-    buttonEl.style.marginLeft = offsetLeftEl.getBoundingClientRect().left + 'px';
-  }
-  window.addEventListener('resize', resetLeftOffset);
-  showAndHideAIOverview(buttonEl);
-}
-
 function boxTheAIOverview(overviewElement) {
   let collapsibleContainer = createCompleteElement('div', { id: 'collapsingAIContent' });
   overviewElement.insertAdjacentElement('beforebegin', collapsibleContainer);
@@ -73,7 +65,7 @@ function showAndHideAIOverview(collapseButton) {
     if(content.style.maxHeight)
       content.style.maxHeight = '';
     else
-      content.style.maxHeight = "100%";
+      content.style.maxHeight = '100%';
   });
 }
 
