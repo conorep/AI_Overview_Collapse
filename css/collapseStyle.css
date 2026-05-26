@@ -31,9 +31,3 @@ button#googleAccordion {
     background-color: #555;
   }
 }
-
-@media (min-width: 1675px) {
-  button#googleAccordion {
-    --center-abs-margin: 230px;
-  }
-}
