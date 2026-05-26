@@ -19,18 +19,16 @@
 
       if(insertedNode.nodeName === 'DIV' && insertedNode.innerText === AIElementFlag) {
         let hveidElement = insertedNode.closest('div[data-subtree="mfc"]');
-
         if(!hveidElement)
           return true;
 
-        if(!hveidElement.parentElement?.dataset?.hveid) {
-          hveidElement = hveidElement.parentElement.parentElement
-          if(!hveidElement.dataset?.hveid)
-            return true;
-        }
+        hveidElement = hveidElement.closest('div[data-hveid]');
+        if(!hveidElement)
+          return true;
 
         const collapseButton = createCompleteElement('button', {
-          id: 'googleAccordion', innerText: 'Show or Hide AI Overview'
+          id: 'googleAccordion', innerText: 'Show or Hide AI Overview', accessKey: 'a',
+          title: 'Use ALT+A to toggle this button using your keyboard.'
         });
 
         hveidElement?.insertAdjacentElement('beforebegin', collapseButton);
