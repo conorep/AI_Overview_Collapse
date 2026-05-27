@@ -1,4 +1,4 @@
-const addHoverBorder = () => {
+const addHoverBackground = () => {
 	const shredditComments = document.querySelectorAll('shreddit-comment');
 	const newSheetStyle = new CSSStyleSheet();
 	newSheetStyle.insertRule('summary div.flex.relative:hover { background-color: rgba(255, 255, 255, 0.1); }')
@@ -9,4 +9,4 @@ const addHoverBorder = () => {
 	})
 }
 
-window.onload = addHoverBorder;
+document.onreadystatechange = addHoverBackground;
