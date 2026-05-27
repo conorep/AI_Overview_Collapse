@@ -10,19 +10,13 @@
     "matches": [ "https://www.google.com/*" ],
     "match_about_blank": false,
     "run_at": "document_start",
-    "js": [
-      "content/hideGoogleAIOverview.js"
-    ],
-    "css": [
-      "css/collapseStyle.css"
-    ]
+    "js": [ "content/hideGoogleAIOverview.js" ],
+    "css": [ "css/collapseStyle.css" ]
   }, {
     "matches": [ "https://www.reddit.com/*" ],
     "match_about_blank": false,
     "run_at": "document_end",
-    "js": [
-      "content/removeRedditAds.js"
-    ]
+    "js": [ "content/removeRedditAds.js", "content/addRedditSummaryHover.js" ]
   }],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self';"
