@@ -18,5 +18,5 @@ window.onload = dynamicAdRemoval;
 
 document.addEventListener('readystatechange', readyStateAdRemoval);
 
-document.addEventListener('scroll', shredditAdRemoval)
+document.addEventListener('scroll', shredditAdRemoval);
 shredditAdRemoval();
