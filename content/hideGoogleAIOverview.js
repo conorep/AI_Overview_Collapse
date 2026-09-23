@@ -59,8 +59,16 @@ function fixAskAnythingMargins(OVElement) {
       grandParentDiv.style.marginLeft = '5px';
       grandParentDiv.style.marginRight = '5px';
       hasFoundSearch = true;
+    } else {
+      showMoreAskAnythingHandler(OVElement);
     }
   }, 500);
+}
+
+function showMoreAskAnythingHandler(OVElement) {
+  let showMoreAIOverviewButton = OVElement.querySelector('div[aria-label="Show more AI Overview"]');
+  if(showMoreAIOverviewButton)
+    showMoreAIOverviewButton.addEventListener('click', () => fixAskAnythingMargins(OVElement));
 }
 
 function boxTheAIOverview(overviewElement) {
