@@ -13,6 +13,11 @@
     "js": [ "content/hideGoogleAIOverview.js" ],
     "css": [ "css/collapseStyle.css" ]
   }, {
+    "matches": [ "https://chat.google.com/*" ],
+    "match_about_blank": false,
+    "run_at": "document_end",
+    "js": [ "content/removeChatSummarizeBtns.js" ]
+  }, {
     "matches": [ "https://www.reddit.com/*" ],
     "match_about_blank": false,
     "run_at": "document_end",
